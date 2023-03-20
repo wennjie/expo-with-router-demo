@@ -1,31 +1,23 @@
 import { StyleSheet ,Pressable} from "react-native";
 import { Text, View } from "../../components/Themed";
 import { Stack ,Link} from "expo-router";
-import { useAuth } from "../../context/auth";
-
 
 export default function TabHomeScreen() {
-  const { signOut } = useAuth();
   return (
     <>
     {/* 当前路由修改 导航栏相关参数 */}
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{
           headerTitle: "11111",
         }}
-      ></Stack.Screen>
+      ></Stack.Screen> */}
       <View style={styles.container}>
-        <Text style={styles.title}>Tab Home</Text>
+        <Text style={styles.title}>GameList</Text>
         {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
         <Link href="/(home)/GameList" asChild>
-             <Text>test</Text>
+             <Text>test2</Text>
             </Link>
-
-
-            <Text onPress={signOut}>out</Text>
       </View>
-
-     
     </>
   );
 }

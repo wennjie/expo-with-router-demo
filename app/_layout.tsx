@@ -1,9 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
+import { SplashScreen, Stack,useRouter ,useNavigation} from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { Provider } from "../context/auth";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -21,10 +22,13 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
+
+ 
 
   return (
     <>
@@ -37,15 +41,23 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
+  const nav = useNavigation()
+
+  useEffect(()=>{
+    router.replace('/(home)/GameList')
+    // nav.reset()
+  },[])
 
   return (
-    <>
+    <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
+        <Stack screenOptions={{animation:'slide_from_right',headerTitleAlign:'center',animationDuration:1000}}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="(home)" options={{headerShown: true }} />
         </Stack>
       </ThemeProvider>
-    </>
+    </Provider>
   );
 }
